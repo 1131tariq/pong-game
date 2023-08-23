@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">turtle </span><span class="s0">import </span><span class="s1">Screen</span>
+<span class="s0">from </span><span class="s1">paddle </span><span class="s0">import </span><span class="s1">Paddle</span>
+<span class="s0">from </span><span class="s1">ball </span><span class="s0">import </span><span class="s1">Ball</span>
+<span class="s0">from </span><span class="s1">scoreboard </span><span class="s0">import </span><span class="s1">ScoreBoard</span>
+<span class="s0">import </span><span class="s1">time</span>
+
+<span class="s1">screen = Screen()</span>
+<span class="s1">screen.setup(width=</span><span class="s2">800</span><span class="s0">, </span><span class="s1">height=</span><span class="s2">600</span><span class="s1">)</span>
+<span class="s1">screen.bgcolor(</span><span class="s3">&quot;black&quot;</span><span class="s1">)</span>
+<span class="s1">screen.title(</span><span class="s3">&quot;Pong Game&quot;</span><span class="s1">)</span>
+<span class="s1">screen.tracer(</span><span class="s2">0</span><span class="s1">)</span>
+
+<span class="s1">left_paddle = Paddle((-</span><span class="s2">350</span><span class="s0">, </span><span class="s2">0</span><span class="s1">))</span>
+<span class="s1">right_paddle = Paddle((</span><span class="s2">350</span><span class="s0">, </span><span class="s2">0</span><span class="s1">))</span>
+<span class="s1">ball = Ball()</span>
+<span class="s1">scoreboard = ScoreBoard()</span>
+
+<span class="s1">screen.listen()</span>
+<span class="s1">screen.onkeypress(left_paddle.go_up</span><span class="s0">, </span><span class="s3">&quot;w&quot;</span><span class="s1">)</span>
+<span class="s1">screen.onkeypress(left_paddle.go_down</span><span class="s0">, </span><span class="s3">&quot;s&quot;</span><span class="s1">)</span>
+<span class="s1">screen.onkeypress(right_paddle.go_up</span><span class="s0">, </span><span class="s3">&quot;Up&quot;</span><span class="s1">)</span>
+<span class="s1">screen.onkeypress(right_paddle.go_down</span><span class="s0">, </span><span class="s3">&quot;Down&quot;</span><span class="s1">)</span>
+
+<span class="s1">game_is_on = </span><span class="s0">True</span>
+
+
+
+<span class="s0">while </span><span class="s1">game_is_on:</span>
+    <span class="s1">time.sleep(ball.move_speed)</span>
+    <span class="s1">screen.update()</span>
+    <span class="s1">ball.move()</span>
+    <span class="s1">scoreboard.update_scoreboard()</span>
+
+    <span class="s0">if </span><span class="s1">ball.ycor() &gt; </span><span class="s2">280 </span><span class="s0">or </span><span class="s1">ball.ycor() &lt; -</span><span class="s2">280</span><span class="s1">:</span>
+        <span class="s1">ball.bounce()</span>
+
+    <span class="s0">if </span><span class="s1">ball.distance(left_paddle) &lt; </span><span class="s2">60 </span><span class="s0">and </span><span class="s1">ball.xcor() == -</span><span class="s2">320 </span><span class="s0">or </span><span class="s1">ball.distance(right_paddle) &lt; </span><span class="s2">60 </span><span class="s0">and </span><span class="s1">ball.xcor() == </span><span class="s2">320</span><span class="s1">:</span>
+        <span class="s1">ball.hit()</span>
+
+
+    <span class="s0">if </span><span class="s1">ball.xcor() &gt; </span><span class="s2">380</span><span class="s1">:</span>
+        <span class="s1">ball.restart()</span>
+        <span class="s1">scoreboard.l_point()</span>
+        <span class="s1">speed = </span><span class="s2">0.1</span>
+
+    <span class="s0">if </span><span class="s1">ball.xcor() &lt; -</span><span class="s2">380</span><span class="s1">:</span>
+        <span class="s1">ball.restart()</span>
+        <span class="s1">scoreboard.r_point()</span>
+        <span class="s1">speed = </span><span class="s2">0.1</span>
+
+<span class="s1">screen.exitonclick()</span>
+</pre>
+</body>
+</html>
